@@ -1,24 +1,52 @@
 <?php
+
 session_start();
 
-$url = isset($_GET['url']) ? rtrim($_GET['url'], '/') : '/';
+spl_autoload_register(function ($class) {
+    $prefix = 'Src\\';
+    $base_dir = __DIR__ . '/../src/';
 
+    $len = strlen($prefix);
+    if (strncmp($prefix, $class, $len) !== 0) {
+        return;
+    }
+
+    $relative_class = substr($class, $len);
+    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+
+    if (file_exists($file)) {
+        require_once $file;
+    }
+});
+
+use Src\Controllers\AuthController;
+use Src\Controllers\EventoController;
+
+$url = isset($_GET['url']) ? rtrim($_GET['url'], '/') : '/';
 $routeSegments = explode('/', $url);
 
 if ($routeSegments[0] === 'api') {
-
     header('Content-Type: application/json; charset=utf-8');
-
+    
     if (isset($routeSegments[1]) && $routeSegments[1] === 'eventos' && isset($routeSegments[2]) && $routeSegments[2] === 'lista') {
-
-        echo json_encode([
-            ["id" => 1, "titulo" => "Conferência de Tecnologia 2026", "local" => "Porto Alegre, POA"],
-            ["id" => 2, "titulo" => "Formatura TADS 2026", "local" => "Venâncio Aires, VA"]
-        ]);
+        $eventoDao = new \Src\Dao\EventoDAO();
+        $eventosObj = $eventoDao->listarTodos();
+        $eventosArray = [];
+        
+        foreach ($eventosObj as $ev) {
+            $eventosArray[] = [
+                "id" => $ev->getId(),
+                "titulo" => $ev->getTitulo(),
+                "descricao" => $ev->getDescricao(),
+                "local" => $ev->getLocal(),
+                "dataEvento" => $ev->getDataEvento()
+            ];
+        }
+        
+        echo json_encode($eventosArray);
         exit;
     }
-
-
+    
     http_response_code(404);
     echo json_encode(["erro" => "Endpoint nao encontrado"]);
     exit;
@@ -27,20 +55,57 @@ if ($routeSegments[0] === 'api') {
 switch ($url) {
     case '/':
     case 'login':
-
-        echo "<h1>Tela de Login (Carregar a view correspondente)</h1>";
+        $auth = new AuthController();
+        $auth->login();
         break;
 
     case 'cadastro':
-        echo "<h1>Tela de Cadastro de Participante</h1>";
+        $auth = new AuthController();
+        $auth->cadastro();
+        break;
+
+    case 'logout':
+        $auth = new AuthController();
+        $auth->logout();
         break;
 
     case 'dashboard':
-        echo "<h1>Dashboard Geral / Listagem de Eventos</h1>";
+        $eventoCtrl = new EventoController();
+        $eventoCtrl->dashboard();
+        break;
+
+    case 'evento/criar':
+        $eventoCtrl = new EventoController();
+        $eventoCtrl->criar();
+        break;
+
+    case 'evento/editar':
+        $eventoCtrl = new EventoController();
+        $eventoCtrl->editar();
+        break;
+
+    case 'evento/excluir':
+        $eventoCtrl = new EventoController();
+        $eventoCtrl->excluir();
+        break;
+
+    case 'evento/inscrever':
+        $eventoCtrl = new EventoController();
+        $eventoCtrl->inscrever();
+        break;
+
+    case 'evento/desinscrever':
+        $eventoCtrl = new EventoController();
+        $eventoCtrl->desinscrever();
+        break;
+
+    case 'evento/detalhes':
+        $eventoCtrl = new EventoController();
+        $eventoCtrl->detalhes();
         break;
 
     default:
         http_response_code(404);
-        echo "<h1>Página 404 - Rota não encontrada</h1>";
+        echo "<h1>Pagina 404 - Rota nao encontrada</h1>";
         break;
 }
