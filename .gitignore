@@ -1,0 +1,5 @@
+/src/vendor/
+/vendor/
+.env
+.DS_Store
+Thumbs.db

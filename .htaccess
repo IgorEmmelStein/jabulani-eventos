@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# Impede que mexam nos arquivos do sistema direto se eles não existirem fisicamente
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redireciona tudo pro index.php dentro da pasta public passando a URL por parâmetro
+RewriteRule ^(.*)$ public/index.php?url=$1 [QSA,L]
