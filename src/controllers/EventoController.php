@@ -17,6 +17,7 @@ class EventoController {
     }
 
     public function dashboard() {
+        $meusEventosIds = [];
         $termo = filter_input(INPUT_GET, 'busca', FILTER_SANITIZE_SPECIAL_CHARS);
         
         if ($termo) {
@@ -25,7 +26,6 @@ class EventoController {
             $eventos = $this->eventoDao->listarTodos();
         }
 
-        $meusEventosIds = [];
         if ($_SESSION['usuario_tipo'] === 'participante') {
             $meusEventos = $this->eventoDao->listarPorUsuario($_SESSION['usuario_id']);
             foreach ($meusEventos as $ev) {
@@ -33,7 +33,7 @@ class EventoController {
             }
         }
 
-        require_once __DIR__ . '/../Views/dashboard.php';
+        require_once __DIR__ . '/../views/dashboard.php';
     }
 
     public function criar() {
@@ -131,18 +131,25 @@ class EventoController {
     }
 
     public function desinscrever() {
-        if ($_SESSION['usuario_tipo'] !== 'participante') {
+        $idEvento = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+        if (!$idEvento){
             header('Location: dashboard');
             exit;
         }
 
-        $idEvento = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-        if ($idEvento) {
+        if ($_SESSION['usuario_tipo'] !== 'admin'){
+            $idUsuario = filter_input(INPUT_GET, 'idUsuario', FILTER_VALIDATE_INT);
+            if ($idUsuario){
+                $this->eventoDao->desinscreverUsuario($idUsuario, $idEvento);
+            }
+            header('Location: detalhes?id=' . $idEvento);
+            exit;
+        }else{
             $this->eventoDao->desinscreverUsuario($_SESSION['usuario_id'], $idEvento);
+            header('Location: dashboard');
+            exit;
         }
-
-        header('Location: dashboard');
-        exit;
     }
 
     public function detalhes() {

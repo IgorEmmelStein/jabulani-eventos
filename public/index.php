@@ -28,23 +28,15 @@ $routeSegments = explode('/', $url);
 if ($routeSegments[0] === 'api') {
     header('Content-Type: application/json; charset=utf-8');
     
+    use src\controllers\ApiController;
+    $apiCtrl = new ApiController();
+    
     if (isset($routeSegments[1]) && $routeSegments[1] === 'eventos' && isset($routeSegments[2]) && $routeSegments[2] === 'lista') {
-        $eventoDao = new \Src\Dao\EventoDAO();
-        $eventosObj = $eventoDao->listarTodos();
-        $eventosArray = [];
-        
-        foreach ($eventosObj as $ev) {
-            $eventosArray[] = [
-                "id" => $ev->getId(),
-                "titulo" => $ev->getTitulo(),
-                "descricao" => $ev->getDescricao(),
-                "local" => $ev->getLocal(),
-                "dataEvento" => $ev->getDataEvento()
-            ];
-        }
-        
-        echo json_encode($eventosArray);
-        exit;
+        $apiCtrl->listarEventos();
+    }
+    
+    if (isset($routeSegments[1]) && $routeSegments[1] === 'usuarios' && isset($routeSegments[2]) && $routeSegments[2] === 'lista') {
+        $apiCtrl->listarUsuarios();
     }
     
     http_response_code(404);
