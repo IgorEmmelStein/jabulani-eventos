@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-br" class="h-full bg-[#121212]">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EventHub - Dashboard</title>
+    <title>JabulaniEventos - Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="h-full text-white bg-[#121212]">
 
     <nav class="bg-[#1e1e1e] border-b border-[#2d2d2d]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-8">
-                    <span class="text-2xl font-bold tracking-tight text-white">EventHub</span>
+                    <span class="text-2xl font-bold tracking-tight text-white">JabulaniEventos</span>
                     <div class="hidden md:block">
                         <div class="flex items-baseline space-x-4">
                             <a href="dashboard" class="bg-[#252525] text-white px-3 py-2 rounded-md text-sm font-medium border border-[#333333]">Eventos</a>
@@ -32,10 +34,10 @@
 
     <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div class="px-4 py-4 sm:px-0">
-            
+
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
                 <form action="dashboard" method="GET" class="flex-1 max-w-md flex gap-2">
-                    <input type="text" name="busca" value="<?= isset($_GET['busca']) ? htmlspecialchars($_GET['busca']) : '' ?>" placeholder="Buscar eventos..." 
+                    <input type="text" name="busca" value="<?= isset($_GET['busca']) ? htmlspecialchars($_GET['busca']) : '' ?>" placeholder="Buscar eventos..."
                         class="appearance-none block w-full px-4 py-2 border border-[#333333] rounded-full placeholder-gray-500 bg-[#1e1e1e] text-white focus:outline-none focus:ring-2 focus:ring-[#10b981] focus:border-[#10b981] sm:text-sm">
                     <button type="submit" class="bg-[#252525] border border-[#333333] hover:bg-[#2d2d2d] px-4 py-2 rounded-full text-sm font-medium transition">Buscar</button>
                 </form>
@@ -73,7 +75,7 @@
                                     <?= htmlspecialchars($evento->getDescricao()) ?>
                                 </p>
                             </div>
-                            
+
                             <div class="px-6 py-4 bg-[#1a1a1a] border-t border-[#2d2d2d] flex items-center justify-between gap-2">
                                 <?php if ($_SESSION['usuario_tipo'] === 'admin'): ?>
                                     <a href="evento/detalhes?id=<?= $evento->getId() ?>" class="text-xs font-semibold text-[#10b981] hover:underline">Participantes</a>
@@ -99,4 +101,5 @@
     </main>
 
 </body>
+
 </html>

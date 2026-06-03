@@ -1,9 +1,9 @@
 <?php
 
-namespace src\controllers;
+namespace Src\Controllers;
 
-use src\dao\UsuarioDAO;
-use src\models\usuario;
+use Src\Dao\UsuarioDAO;
+use Src\Models\Usuario;
 
 class AuthController {
     private $usuarioDao;
@@ -25,7 +25,7 @@ class AuthController {
                 $_SESSION['usuario_email'] = $usuario->getEmail();
                 $_SESSION['usuario_tipo'] = $usuario->getTipo();
 
-                header('Location: dashboard');
+                header('Location: ' . BASE_URL . 'dashboard');
                 exit;
             }
 
@@ -48,7 +48,7 @@ class AuthController {
                 $novoUsuario = new Usuario($nome, $email, $senhaHash, 'participante');
 
                 if ($this->usuarioDao->cadastrar($novoUsuario)) {
-                    header('Location: login');
+                    header('Location: ' . BASE_URL . 'login');
                     exit;
                 }
             }
@@ -64,7 +64,7 @@ class AuthController {
     public function logout() {
         session_unset();
         session_destroy();
-        header('Location: login');
+        header('Location: ' . BASE_URL . 'login');
         exit;
     }
 }

@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EventHub - Criar Conta</title>
+    <title>JabulaniEventos - Criar Conta</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-white">
 
     <div class="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <h1 class="text-4xl font-extrabold tracking-tight text-white mb-2">EventHub</h1>
+        <h1 class="text-4xl font-extrabold tracking-tight text-white mb-2">JabulaniEventos</h1>
         <p class="text-sm text-gray-400">Crie sua conta grátis</p>
     </div>
 
