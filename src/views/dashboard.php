@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EventHub - Dashboard</title>
+    <title>JabulaniEventos - Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -14,7 +14,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-8">
-                    <span class="text-2xl font-bold tracking-tight text-white">EventHub</span>
+                    <span class="text-2xl font-bold tracking-tight text-white">JabulaniEventos</span>
                     <div class="hidden md:block">
                         <div class="flex items-baseline space-x-4">
                             <a href="dashboard" class="bg-[#252525] text-white px-3 py-2 rounded-md text-sm font-medium border border-[#333333]">Eventos</a>

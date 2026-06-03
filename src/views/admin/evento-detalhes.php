@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EventHub - Detalhes do Evento</title>
+    <title>JabulaniEventos - Detalhes do Evento</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="h-full text-white bg-[#121212]">
@@ -12,7 +12,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-8">
-                    <span class="text-2xl font-bold tracking-tight text-white">EventHub</span>
+                    <span class="text-2xl font-bold tracking-tight text-white">JabulaniEventos</span>
                     <a href="../dashboard" class="text-sm font-medium text-gray-400 hover:text-white transition">Voltar ao Dashboard</a>
                 </div>
                 <div class="flex items-center gap-4">
