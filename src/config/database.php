@@ -11,7 +11,7 @@ class Database {
     public static function getConnection() {
         if (self::$instance === null) {
             $host = 'localhost';
-            $db   = 'jabulani_eventos';
+            $db   = 'jabulani-eventos';
             $user = 'root'; 
             $pass = '';     
             $charset = 'utf8mb4';

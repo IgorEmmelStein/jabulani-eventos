@@ -5,21 +5,24 @@ namespace Src\Controllers;
 use Src\Dao\EventoDAO;
 use Src\Models\Evento;
 
-class EventoController {
+class EventoController
+{
     private $eventoDao;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->eventoDao = new EventoDAO();
         if (!isset($_SESSION['usuario_id'])) {
-            header('Location: login');
+            header('Location: ' . BASE_URL . 'login');
             exit;
         }
     }
 
-    public function dashboard() {
+    public function dashboard()
+    {
         $meusEventosIds = [];
         $termo = filter_input(INPUT_GET, 'busca', FILTER_SANITIZE_SPECIAL_CHARS);
-        
+
         if ($termo) {
             $eventos = $this->eventoDao->buscar($termo);
         } else {
@@ -36,7 +39,8 @@ class EventoController {
         require_once __DIR__ . '/../views/dashboard.php';
     }
 
-    public function criar() {
+    public function criar()
+    {
         if ($_SESSION['usuario_tipo'] !== 'admin') {
             header('Location: dashboard');
             exit;
@@ -58,9 +62,11 @@ class EventoController {
         }
 
         require_once __DIR__ . '/../Views/admin/evento-form.php';
+        header('Location: ' . BASE_URL . 'dashboard');
     }
 
-    public function editar() {
+    public function editar()
+    {
         if ($_SESSION['usuario_tipo'] !== 'admin') {
             header('Location: dashboard');
             exit;
@@ -98,9 +104,11 @@ class EventoController {
         }
 
         require_once __DIR__ . '/../Views/admin/evento-form.php';
+        header('Location: ' . BASE_URL . 'dashboard');
     }
 
-    public function excluir() {
+    public function excluir()
+    {
         if ($_SESSION['usuario_tipo'] !== 'admin') {
             header('Location: dashboard');
             exit;
@@ -111,11 +119,13 @@ class EventoController {
             $this->eventoDao->excluir($id);
         }
 
-        header('Location: dashboard');
+        
+        header('Location: ' . BASE_URL . 'dashboard');;
         exit;
     }
 
-    public function inscrever() {
+    public function inscrever()
+    {
         if ($_SESSION['usuario_tipo'] !== 'participante') {
             header('Location: dashboard');
             exit;
@@ -126,33 +136,34 @@ class EventoController {
             $this->eventoDao->inscreverUsuario($_SESSION['usuario_id'], $idEvento);
         }
 
-        header('Location: dashboard');
+        header('Location: ' . BASE_URL . 'dashboard');
         exit;
     }
 
     public function desinscrever() {
-        $idEvento = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+      $idEvento = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
-        if (!$idEvento){
-            header('Location: dashboard');
-            exit;
-        }
+      if (!$idEvento) {
+          header('Location: ' . BASE_URL . 'dashboard');
+          exit;
+      }
 
-        if ($_SESSION['usuario_tipo'] !== 'admin'){
-            $idUsuario = filter_input(INPUT_GET, 'idUsuario', FILTER_VALIDATE_INT);
-            if ($idUsuario){
-                $this->eventoDao->desinscreverUsuario($idUsuario, $idEvento);
-            }
-            header('Location: detalhes?id=' . $idEvento);
-            exit;
-        }else{
-            $this->eventoDao->desinscreverUsuario($_SESSION['usuario_id'], $idEvento);
-            header('Location: dashboard');
-            exit;
-        }
-    }
+      if ($_SESSION['usuario_tipo'] === 'admin') {
+          $idUsuario = filter_input(INPUT_GET, 'usuario_id', FILTER_VALIDATE_INT);
+          if ($idUsuario) {
+              $this->eventoDao->desinscreverUsuario($idUsuario, $idEvento);
+          }
+          header('Location: ' . BASE_URL . 'evento/detalhes?id=' . $idEvento);
+          exit;
+      } else {
+          $this->eventoDao->desinscreverUsuario($_SESSION['usuario_id'], $idEvento);
+          header('Location: ' . BASE_URL . 'dashboard');
+          exit;
+      }
+  }
 
-    public function detalhes() {
+    public function detalhes()
+    {
         $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         if (!$id) {
             header('Location: dashboard');

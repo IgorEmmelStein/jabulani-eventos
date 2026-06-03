@@ -21,24 +21,36 @@ spl_autoload_register(function ($class) {
 
 use Src\Controllers\AuthController;
 use Src\Controllers\EventoController;
+use Src\Controllers\ApiController;
+
+$scriptName = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+$baseUrl = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . rtrim($scriptName, '/') . '/';
+define('BASE_URL', $baseUrl);
 
 $url = isset($_GET['url']) ? rtrim($_GET['url'], '/') : '/';
+
+if (strpos($url, 'public/') === 0) {
+    $url = substr($url, 7);
+}
+if ($url === '') {
+    $url = '/';
+}
+
 $routeSegments = explode('/', $url);
 
 if ($routeSegments[0] === 'api') {
     header('Content-Type: application/json; charset=utf-8');
-    
-    use src\controllers\ApiController;
+
     $apiCtrl = new ApiController();
-    
+
     if (isset($routeSegments[1]) && $routeSegments[1] === 'eventos' && isset($routeSegments[2]) && $routeSegments[2] === 'lista') {
         $apiCtrl->listarEventos();
     }
-    
+
     if (isset($routeSegments[1]) && $routeSegments[1] === 'usuarios' && isset($routeSegments[2]) && $routeSegments[2] === 'lista') {
         $apiCtrl->listarUsuarios();
     }
-    
+
     http_response_code(404);
     echo json_encode(["erro" => "Endpoint nao encontrado"]);
     exit;
@@ -46,6 +58,7 @@ if ($routeSegments[0] === 'api') {
 
 switch ($url) {
     case '/':
+    case '':
     case 'login':
         $auth = new AuthController();
         $auth->login();
@@ -99,5 +112,6 @@ switch ($url) {
     default:
         http_response_code(404);
         echo "<h1>Pagina 404 - Rota nao encontrada</h1>";
+        echo "<p>Rota requisitada: " . htmlspecialchars($url) . "</p>";
         break;
 }

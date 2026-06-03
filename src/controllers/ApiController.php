@@ -1,9 +1,9 @@
 <?php
 
-namespace src\controllers;
+namespace Src\Controllers;
 
-use src\dao\EventoDAO;
-use src\dao\UsuarioDAO;
+use Src\Dao\EventoDAO;
+use Src\Dao\UsuarioDAO;
 
 class ApiController
 {
