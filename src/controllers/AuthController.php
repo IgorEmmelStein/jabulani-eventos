@@ -42,7 +42,7 @@ class AuthController {
             $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
             $senha = $_POST['senha'] ?? '';
-            
+
             if ($nome && $email && $senha) {
                 $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
                 $novoUsuario = new Usuario($nome, $email, $senhaHash, 'participante');

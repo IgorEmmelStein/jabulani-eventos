@@ -15,7 +15,7 @@
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div class="bg-[#1e1e1e] py-8 px-4 shadow sm:rounded-lg sm:px-10 border border-[#2d2d2d]">
-            
+
             <?php if (isset($erro)): ?>
                 <div class="mb-4 bg-red-900/50 border border-red-500 text-red-200 text-sm p-3 rounded-lg">
                     <?= $erro ?>
@@ -66,4 +66,3 @@
     </div>
 
 </body>
-</html>
