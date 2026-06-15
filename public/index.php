@@ -1,5 +1,9 @@
 <?php
 
+ini_set('session.cookie_httponly', 1);
+ini_set('session.cookie_secure', 1); 
+ini_set('session.use_only_cookies', 1);
+
 session_start();
 
 spl_autoload_register(function ($class) {
@@ -74,6 +78,11 @@ switch ($url) {
         $auth->logout();
         break;
 
+    case 'perfil':
+        $auth = new AuthController();
+        $auth->perfil();
+        break;
+        
     case 'dashboard':
         $eventoCtrl = new EventoController();
         $eventoCtrl->dashboard();
@@ -107,6 +116,16 @@ switch ($url) {
     case 'evento/detalhes':
         $eventoCtrl = new EventoController();
         $eventoCtrl->detalhes();
+        break;
+
+    case 'evento/exportar-xml':
+        $eventoCtrl = new EventoController();
+        $eventoCtrl->exportarXml();
+        break;
+
+    case 'evento/relatorio-pdf':
+        $eventoCtrl = new EventoController();
+        $eventoCtrl->relatorioPdf();
         break;
 
     default:

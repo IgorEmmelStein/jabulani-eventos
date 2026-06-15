@@ -66,4 +66,29 @@ class UsuarioDAO {
 
         return $stmt->execute();
     }
+
+    public function buscarParticipantes($termo) {
+        $sql = "SELECT * FROM Usuarios WHERE tipo = 'participante' AND (nomeUsuario LIKE :termo OR email LIKE :termo)";
+        $stmt = $this->db->prepare($sql);
+        
+        $likeTermo = '%' . $termo . '%';
+        $stmt->bindParam(':termo', $likeTermo);
+        $stmt->execute();
+
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $usuarios = [];
+        foreach ($resultados as $resultado) {
+            $usuarios[] = new Usuario(
+                $resultado['nomeUsuario'],
+                $resultado['email'],
+                $resultado['senha'],
+                $resultado['tipo'],
+                $resultado['idUsuario'],
+                $resultado['registroCriado']
+            );
+        }
+        return $usuarios;
+    }
+    
 }

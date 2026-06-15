@@ -12,6 +12,12 @@ class ApiController
 
     public function __construct()
     {
+        $headers = apache_request_headers();
+        if (!isset($headers['Authorization']) || $headers['Authorization'] !== 'Bearer token2026_seguro_jabulani') {
+            http_response_code(401);
+            echo json_encode(["erro" => "Unauthorized"]);
+            exit;
+        }
         $this->eventoDao = new EventoDAO();
         $this->usuarioDao = new UsuarioDAO();
     }
