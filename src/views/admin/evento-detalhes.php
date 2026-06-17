@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br" class="h-full bg-[#121212]">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JabulaniEventos - Detalhes do Evento</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="h-full text-white bg-[#121212]">
 
     <nav class="bg-[#1e1e1e] border-b border-[#2d2d2d]">
@@ -23,7 +25,7 @@
     </nav>
 
     <main class="max-w-5xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
-        
+
         <div class="bg-[#1e1e1e] rounded-xl border border-[#2d2d2d] p-6 mb-8">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
@@ -77,9 +79,9 @@
                                         <?= htmlspecialchars($participante->getEmail()) ?>
                                     </td>
                                     <td class="px-6 py-4 text-right">
-                                        <a href="desinscrever?id=<?= $evento->getId() ?>&usuario_id=<?= $participante->getIdUsuario() ?>" 
-                                           onclick="return confirm('Remover este participante do evento?')"
-                                           class="inline-flex items-center justify-center bg-red-950/40 border border-red-800/40 px-3 py-1.5 rounded-full text-xs font-medium text-red-200 hover:bg-red-900/40 transition">
+                                        <a href="desinscrever?id=<?= $evento->getId() ?>&usuario_id=<?= $participante->getIdUsuario() ?>"
+                                            onclick="return confirm('Remover este participante do evento?')"
+                                            class="inline-flex items-center justify-center bg-red-950/40 border border-red-800/40 px-3 py-1.5 rounded-full text-xs font-medium text-red-200 hover:bg-red-900/40 transition">
                                             Remover
                                         </a>
                                     </td>
@@ -94,4 +96,5 @@
     </main>
 
 </body>
+
 </html>

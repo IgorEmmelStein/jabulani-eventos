@@ -10,7 +10,6 @@ spl_autoload_register(function ($class) {
     if (strncmp($prefix, $class, $len) !== 0) {
         return;
     }
-
     $relative_class = substr($class, $len);
     $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
 
@@ -23,30 +22,36 @@ use Src\Controllers\AuthController;
 use Src\Controllers\EventoController;
 use Src\Controllers\ApiController;
 
+
+//identifica qual é o endereço principal do site
 $scriptName = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
 $baseUrl = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . rtrim($scriptName, '/') . '/';
 define('BASE_URL', $baseUrl);
 
+
+//aqui pega a rota que o usuário tentou acessar 
 $url = isset($_GET['url']) ? rtrim($_GET['url'], '/') : '/';
 
+//tratando os endereços aqui
 if (strpos($url, 'public/') === 0) {
     $url = substr($url, 7);
 }
 if ($url === '') {
     $url = '/';
 }
-
 $routeSegments = explode('/', $url);
 
+//aqui se a url comecar com api o codigo muda responde em formato json em vez de carregar a tela html
 if ($routeSegments[0] === 'api') {
     header('Content-Type: application/json; charset=utf-8');
 
     $apiCtrl = new ApiController();
 
+    //verifica endpoint disponivel
     if (isset($routeSegments[1]) && $routeSegments[1] === 'eventos' && isset($routeSegments[2]) && $routeSegments[2] === 'lista') {
         $apiCtrl->listarEventos();
     }
-
+    //verifica endpoint disponivel
     if (isset($routeSegments[1]) && $routeSegments[1] === 'usuarios' && isset($routeSegments[2]) && $routeSegments[2] === 'lista') {
         $apiCtrl->listarUsuarios();
     }
@@ -56,6 +61,7 @@ if ($routeSegments[0] === 'api') {
     exit;
 }
 
+//aqui ele faz todos os redirects para cada uma das paginas seguintes, pq o index é a porta de tudo
 switch ($url) {
     case '/':
     case '':
