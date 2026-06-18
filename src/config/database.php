@@ -17,7 +17,7 @@ class Database {
 
             //dados do bg pra conectar
             $host = 'localhost';
-            $db   = 'jabulani_eventos';
+            $db   = 'jabulani-eventos';
             $user = 'root'; 
             $pass = '';     
             //formatação Multibyte de 4 bytes para conexões de banco de dados, sendo o padrão atual e recomendado

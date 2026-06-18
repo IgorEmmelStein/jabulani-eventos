@@ -1,7 +1,7 @@
 <?php
 
 ini_set('session.cookie_httponly', 1);
-ini_set('session.cookie_secure', 1); 
+ini_set('session.cookie_secure', 1);
 ini_set('session.use_only_cookies', 1);
 
 session_start();
@@ -88,7 +88,7 @@ switch ($url) {
         $auth = new AuthController();
         $auth->perfil();
         break;
-        
+
     case 'dashboard':
         $eventoCtrl = new EventoController();
         $eventoCtrl->dashboard();
@@ -124,14 +124,14 @@ switch ($url) {
         $eventoCtrl->detalhes();
         break;
 
-    case 'evento/exportar-xml':
-        $eventoCtrl = new EventoController();
-        $eventoCtrl->exportarXml();
-        break;
-
     case 'evento/relatorio-pdf':
         $eventoCtrl = new EventoController();
         $eventoCtrl->relatorioPdf();
+        break;
+        
+    case 'evento/exportar-xml':
+        $eventoCtrl = new EventoController();
+        $eventoCtrl->exportarXml();
         break;
 
     default:

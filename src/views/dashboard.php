@@ -37,7 +37,7 @@
                     </div>
                     <div class="text-right hidden sm:block">
                         <a href="perfil" class="hover:text-[#10b981] transition">
-                        <div class="text-sm font-medium text-white"><?= htmlspecialchars($_SESSION['usuario_nome'], ENT_QUOTES, 'UTF-8') ?></div>
+                            <div class="text-sm font-medium text-white"><?= htmlspecialchars($_SESSION['usuario_nome'], ENT_QUOTES, 'UTF-8') ?></div>
                         </a>
                         <div class="text-xs text-gray-400 capitalize"><?= htmlspecialchars($_SESSION['usuario_tipo'], ENT_QUOTES, 'UTF-8') ?></div>
                     </div>
@@ -67,6 +67,10 @@
                     <div class="flex gap-2">
                         <a href="evento/criar" class="inline-flex items-center justify-center py-2 px-5 rounded-full text-sm font-medium text-white bg-[#10b981] hover:bg-[#059669] transition font-bold shadow-sm">
                             Criar Novo Evento
+                        </a>
+                    <!-- Função exportar em PDF -->
+                        <a href="evento/exportar-xml" class="inline-flex items-center justify-center py-2 px-5 rounded-full text-sm font-medium text-white bg-[#252525] hover:bg-[#292929] transition font-bold shadow-sm">
+                            Exportar XML
                         </a>
                     </div>
                 <?php endif; ?>
@@ -107,9 +111,13 @@
                                     </a>
                                     <div class="flex gap-2">
                                         <a href="evento/editar?id=<?= $evento->getId() ?>"
-                                            class="text-xs bg-[#252525] border border-[#333333] px-2.5 py-1.5 rounded text-gray-300 hover:bg-[#2d2d2d]">Editar</a>
+                                            class="text-xs bg-[#252525] border border-[#333333] px-2.5 py-1.5 rounded text-gray-300 hover:bg-[#2d2d2d]">Editar
+                                        </a>
                                         <a href="evento/excluir?id=<?= $evento->getId() ?>"
-                                            onclick="return confirm('Confirmar exclusao?')" class="text-xs bg-red-950/40 border border-red-800/40 px-2.5 py-1.5 rounded text-red-200 hover:bg-red-900/40">Excluir</a>
+                                            onclick="return confirm('Confirmar exclusao?')"
+                                            class="text-xs bg-red-950/40 border border-red-800/40 px-2.5 py-1.5 rounded text-red-200 hover:bg-red-900/40">
+                                            Excluir
+                                        </a>
                                     </div>
                                 <?php else: ?>
                                     <span class="text-xs text-gray-500">Ações disponíveis</span>
