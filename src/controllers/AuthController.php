@@ -42,7 +42,7 @@ class AuthController {
             $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
             $senha = $_POST['senha'] ?? '';
-            
+
             if ($nome && $email && $senha) {
                 $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
                 $novoUsuario = new Usuario($nome, $email, $senhaHash, 'participante');
@@ -67,4 +67,31 @@ class AuthController {
         header('Location: ' . BASE_URL . 'login');
         exit;
     }
+
+     public function perfil() {
+        if (!isset($_SESSION['usuario_id'])) {
+            header('Location: ' . BASE_URL . 'login');
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+            
+            if ($nome && $email) {
+                // Cria o objeto e define o ID pela SESSÃO (Prevenção de IDOR)
+                $usuario = new Usuario();
+                $usuario->setNomeUsuario($nome);
+                $usuario->setEmail($email);
+                $usuario->setIdUsuario($_SESSION['usuario_id']); 
+                
+                if ($this->usuarioDao->atualizarPerfil($usuario)) {
+                    $_SESSION['usuario_nome'] = $nome; // Atualiza sessão
+                    $sucesso = "Perfil atualizado!";
+                }
+            }
+        }
+        require_once __DIR__ . '/../views/perfil.php';
+    }
+
 }

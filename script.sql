@@ -25,7 +25,7 @@ CREATE TABLE Usuarios_Eventos (
     idEvento INT,
     registroCriado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario) ON DELETE CASCADE, 
-    FOREIGN KEY (idEvento) REFERENCES Eventos(id) ON DELETE CASCADE[cite: 1]
+    FOREIGN KEY (idEvento) REFERENCES Eventos(id) ON DELETE CASCADE
 );
 
 

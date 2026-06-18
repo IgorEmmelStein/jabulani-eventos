@@ -17,15 +17,13 @@ class Database {
 
             //dados do bg pra conectar
             $host = 'localhost';
-            $db   = 'jabulani-eventos';
+            $db   = 'jabulani_eventos';
             $user = 'root'; 
             $pass = '';     
             //formatação Multibyte de 4 bytes para conexões de banco de dados, sendo o padrão atual e recomendado
             $charset = 'utf8mb4';
 
             $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-            
-            //aqui configura o comportamento do PDO
             $options = [
                 //exception de erro
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -41,7 +39,7 @@ class Database {
             try {
                 self::$instance = new PDO($dsn, $user, $pass, $options);
             } catch (PDOException $e) {
-                
+
                 die("Erro de conexao com o banco de dados: " . $e->getMessage());
             }
         }
