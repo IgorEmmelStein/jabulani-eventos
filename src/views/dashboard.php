@@ -62,6 +62,9 @@
                         <a href="evento/exportar-xml" class="inline-flex items-center justify-center py-2 px-5 rounded-full text-sm font-medium text-white bg-[#252525] hover:bg-[#292929] transition font-bold shadow-sm">
                             Exportar XML
                         </a>
+                        <a href="usuarios" class="inline-flex items-center justify-center py-2 px-5 rounded-full text-sm font-medium text-[#10b981] bg-[#252525] border border-[#333333] hover:bg-[#2d2d2d] transition font-bold shadow-sm">
+                            Buscar Participantes
+                        </a>
                     </div>
                 <?php endif; ?>
             </div>
@@ -111,9 +114,9 @@
                                     </div>
                                 <?php else: ?>
                                     <span class="text-xs text-gray-500">Ações disponíveis</span>
-                                    <?php if (in_array($evento->getId(), $evento)): ?>
+                                    <?php if (in_array($evento->getId(), $meusEventosIds)): ?>
                                         <a href="evento/desinscrever?id=<?= $evento->getId() ?>"
-                                            class="text-xs bg-red-900/50 hover:bg-red-900/70 text-red-200 px-3 py-1.5 rounded-full font-medium transition border border-red-700/50">Cancelar Inscrição</a>
+                                        class="text-xs bg-red-900/50 hover:bg-red-900/70 text-red-200 px-3 py-1.5 rounded-full font-medium transition border border-red-700/50">Cancelar Inscrição</a>
                                     <?php else: ?>
                                         <a href="evento/inscrever?id=<?= $evento->getId() ?>"
                                             class="text-xs bg-[#10b981] hover:bg-[#059669] text-white px-4 py-1.5 rounded-full font-bold transition">Inscrever-se</a>

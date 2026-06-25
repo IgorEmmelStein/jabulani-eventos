@@ -178,6 +178,7 @@ class EventoDAO {
             $usuarios[] = new Usuario(
                 $linha['nomeUsuario'],
                 $linha['email'],
+                $linha['telefone'],
                 $linha['senha'],
                 $linha['tipo'],
                 $linha['idUsuario'],

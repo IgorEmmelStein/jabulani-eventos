@@ -39,6 +39,13 @@
                     </div>
                 </div>
                 <div>
+                    <label for="telefone" class="block text-sm font-medium text-gray-300">Telefone</label>
+                    <div class="mt-1">
+                        <input id="telefone" name="telefone" type="tel" required placeholder="(00) 00000-0000"
+                            class="appearance-none block w-full px-3 py-2 border border-[#333333] rounded-md shadow-sm placeholder-gray-500 bg-[#252525] text-white focus:outline-none focus:ring-2 focus:ring-[#10b981] focus:border-[#10b981] sm:text-sm">
+                    </div>
+                </div>
+                <div>
                     <label for="senha" class="block text-sm font-medium text-gray-300">Senha</label>
                     <div class="mt-1">
                         <input id="senha" name="senha" type="password" required placeholder="Crie uma senha" 

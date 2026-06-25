@@ -237,7 +237,8 @@ class EventoController
         }
 
         // estrutura html do pdf
-        $html = '<h1 style="text-align:center;">Lista de Presenca</h1>';
+        $html = '<head><meta charset="UTF-8"></head>';
+        $html .= '<h1 style="text-align:center;">Lista de Presença</h1>';
         $html .= '<h3>Evento: ' . htmlspecialchars($evento->getTitulo()) . '</h3>';
         $html .= '<p><strong>Data:</strong> ' . date('d/m/Y', strtotime($evento->getDataEvento())) . ' | <strong>Local:</strong> ' . htmlspecialchars($evento->getLocal()) . '</p>';
 

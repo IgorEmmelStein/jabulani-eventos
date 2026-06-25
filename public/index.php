@@ -134,6 +134,11 @@ switch ($url) {
         $eventoCtrl->exportarXml();
         break;
 
+    case 'usuarios':
+        $auth = new AuthController();
+        $auth->usuarios();
+        break;
+
     default:
         http_response_code(404);
         echo "<h1>Pagina 404 - Rota nao encontrada</h1>";
