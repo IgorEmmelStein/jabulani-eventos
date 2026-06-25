@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br" class="h-full bg-[#121212]">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JabulaniEventos - Detalhes do Evento</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="h-full text-white bg-[#121212]">
 
     <nav class="bg-[#1e1e1e] border-b border-[#2d2d2d]">
@@ -23,7 +25,7 @@
     </nav>
 
     <main class="max-w-5xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
-        
+
         <div class="bg-[#1e1e1e] rounded-xl border border-[#2d2d2d] p-6 mb-8">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
@@ -48,8 +50,14 @@
                     <h2 class="text-xl font-bold text-white tracking-tight">Participantes Inscritos</h2>
                     <p class="text-xs text-gray-400 mt-0.5">Lista de utilizadores registados para este evento.</p>
                 </div>
-                <div class="text-sm font-semibold bg-[#252525] border border-[#333333] px-4 py-1.5 rounded-full text-gray-300">
-                    Total: <?= count($participantes) ?>
+<!-- Função exportar em PDF -->
+                <div class="flex items-center gap-3">
+                    <a href="../evento/relatorio-pdf?id=<?= $evento->getId() ?>" target="_blank" class="px-4 py-1.5 rounded-full text-sm font-semibold bg-[#535353] text-white transition">
+                        Imprimir Lista (PDF)
+                    </a>
+                    <div class="text-sm font-semibold bg-[#252525] border border-[#333333] px-4 py-1.5 rounded-full text-gray-300">
+                        Total: <?= count($participantes) ?>
+                    </div>
                 </div>
             </div>
 
@@ -77,9 +85,9 @@
                                         <?= htmlspecialchars($participante->getEmail()) ?>
                                     </td>
                                     <td class="px-6 py-4 text-right">
-                                        <a href="desinscrever?id=<?= $evento->getId() ?>&usuario_id=<?= $participante->getIdUsuario() ?>" 
-                                           onclick="return confirm('Remover este participante do evento?')"
-                                           class="inline-flex items-center justify-center bg-red-950/40 border border-red-800/40 px-3 py-1.5 rounded-full text-xs font-medium text-red-200 hover:bg-red-900/40 transition">
+                                        <a href="desinscrever?id=<?= $evento->getId() ?>&usuario_id=<?= $participante->getIdUsuario() ?>"
+                                            onclick="return confirm('Remover este participante do evento?')"
+                                            class="inline-flex items-center justify-center bg-red-950/40 border border-red-800/40 px-3 py-1.5 rounded-full text-xs font-medium text-red-200 hover:bg-red-900/40 transition">
                                             Remover
                                         </a>
                                     </td>
@@ -94,4 +102,5 @@
     </main>
 
 </body>
+
 </html>

@@ -97,15 +97,20 @@ class EventoDAO {
         return $stmt->execute();
     }
 
-    public function buscar($termo) {
-        $sql = "SELECT * FROM Eventos WHERE titulo LIKE :termo OR descricao LIKE :termo ORDER BY dataEvento ASC";
+      public function buscar($termo) {
+        $sql = "SELECT * FROM Eventos WHERE titulo LIKE :termo1 OR descricao LIKE :termo2 ORDER BY dataEvento ASC";
         $stmt = $this->db->prepare($sql);
+        
         $likeTermo = '%' . $termo . '%';
-        $stmt->bindParam(':termo', $likeTermo);
+        
+        $stmt->bindParam(':termo1', $likeTermo);
+        $stmt->bindParam(':termo2', $likeTermo);
+        
         $stmt->execute();
-
+        
         $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $eventos = [];
+        
         foreach ($resultados as $linha) {
             $eventos[] = new Evento(
                 $linha['titulo'],
@@ -116,6 +121,7 @@ class EventoDAO {
                 $linha['registroCriado']
             );
         }
+        
         return $eventos;
     }
 
