@@ -24,6 +24,8 @@ class Database {
             $charset = 'utf8mb4';
 
             $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+            
+            //aqui configura o comportamento do PDO
             $options = [
                 //exception de erro
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
