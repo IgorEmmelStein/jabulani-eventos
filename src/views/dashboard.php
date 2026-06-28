@@ -31,7 +31,8 @@
                     </a>
                         <div class="text-xs text-gray-400 capitalize"><?= htmlspecialchars($_SESSION['usuario_tipo'], ENT_QUOTES, 'UTF-8') ?></div>
                     </div>
-                    <a href="logout" class="bg-red-900/40 hover:bg-red-900/60 text-red-200 px-4 py-2 rounded-full text-sm font-medium border border-red-700/50 transition duration-150">Sair</a>
+                    <a href="logout"
+                        class="bg-red-900/40 hover:bg-red-900/60 text-red-200 px-4 py-2 rounded-full text-sm font-medium border border-red-700/50 transition duration-150">Sair</a>
                 </div>
             </div>
         </div>
