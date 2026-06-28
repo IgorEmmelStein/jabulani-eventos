@@ -5,14 +5,17 @@ namespace Src\Controllers;
 use Src\Dao\UsuarioDAO;
 use Src\Models\Usuario;
 
-class AuthController {
+class AuthController
+{
     private $usuarioDao;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->usuarioDao = new UsuarioDAO();
     }
 
-    public function login() {
+    public function login()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
             $senha = $_POST['senha'] ?? '';
@@ -38,7 +41,8 @@ class AuthController {
         require_once __DIR__ . '/../views/login.php';
     }
 
-    public function cadastro() {
+    public function cadastro()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
@@ -47,8 +51,9 @@ class AuthController {
 
             if ($nome && $email && $telefone && $senha) {
                 $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-                $novoUsuario = new Usuario($nome, $email, $senhaHash, 'participante');
-                $novoUsuario->setTelefone($telefone);
+
+                // Passagem correta dos parâmetros de acordo com o construtor
+                $novoUsuario = new Usuario($nome, $email, $telefone, $senhaHash, 'participante');
 
                 if ($this->usuarioDao->cadastrar($novoUsuario)) {
                     header('Location: ' . BASE_URL . 'login');
@@ -64,14 +69,16 @@ class AuthController {
         require_once __DIR__ . '/../views/cadastro.php';
     }
 
-    public function logout() {
+    public function logout()
+    {
         session_unset();
         session_destroy();
         header('Location: ' . BASE_URL . 'login');
         exit;
     }
 
-     public function perfil() {
+    public function perfil()
+    {
         if (!isset($_SESSION['usuario_id'])) {
             header('Location: ' . BASE_URL . 'login');
             exit;
@@ -88,8 +95,8 @@ class AuthController {
                 $usuario->setNomeUsuario($nome);
                 $usuario->setEmail($email);
                 $usuario->setTelefone($telefone);
-                $usuario->setIdUsuario($_SESSION['usuario_id']); 
-                
+                $usuario->setIdUsuario($_SESSION['usuario_id']);
+
                 if ($this->usuarioDao->atualizarPerfil($usuario)) {
                     $_SESSION['usuario_nome'] = $nome; // Atualiza sessão
                     $_SESSION['usuario_email'] = $email; // Atualiza sessão
@@ -101,7 +108,8 @@ class AuthController {
         require_once __DIR__ . '/../views/perfil.php';
     }
 
-    public function usuarios() {
+    public function usuarios()
+    {
         if ($_SESSION['usuario_tipo'] !== 'admin') {
             header('Location: ' . BASE_URL . 'dashboard');
             exit;
@@ -112,5 +120,4 @@ class AuthController {
 
         require_once __DIR__ . '/../views/admin/usuarios.php';
     }
-
 }

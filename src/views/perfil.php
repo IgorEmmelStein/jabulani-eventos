@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br" class="h-full bg-[#121212]">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JabulaniEventos - Editar Perfil</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="h-full text-white bg-[#121212]">
 
     <nav class="bg-[#1e1e1e] border-b border-[#2d2d2d]">
@@ -13,7 +15,7 @@
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-8">
                     <span class="text-2xl font-bold tracking-tight text-white">JabulaniEventos</span>
-                    <a href="dashboard" class="text-sm font-medium text-gray-400 hover:text-white transition">Voltar ao Dashboard</a>
+                    <a href="dashboard" class="bg-[#252525] border border-[#333333] hover:bg-[#2d2d2d] px-4 py-2 rounded-full text-sm font-medium transition">Voltar ao Dashboard</a>
                 </div>
                 <div class="flex items-center gap-4">
                     <span class="text-xs bg-[#252525] border border-[#333333] px-3 py-1 rounded-full capitalize text-gray-300">
@@ -31,7 +33,7 @@
         </div>
 
         <div class="bg-[#1e1e1e] shadow sm:rounded-xl border border-[#2d2d2d] overflow-hidden">
-            
+
             <?php if (isset($sucesso)): ?>
                 <div class="m-6 mb-0 bg-green-900/50 border border-green-500 text-green-200 text-sm p-3 rounded-lg">
                     <?= htmlspecialchars($sucesso, ENT_QUOTES, 'UTF-8') ?>
@@ -50,7 +52,7 @@
                     <label for="nome" class="block text-sm font-medium text-gray-300">Nome completo *</label>
                     <div class="mt-1">
 
-                        <input id="nome" name="nome" type="text" required 
+                        <input id="nome" name="nome" type="text" required
                             value="<?= htmlspecialchars($_SESSION['usuario_nome'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
                             class="appearance-none block w-full px-4 py-2.5 border border-[#333333] rounded-md shadow-sm placeholder-gray-500 bg-[#252525] text-white focus:outline-none focus:ring-2 focus:ring-[#10b981] focus:border-[#10b981] sm:text-sm">
                     </div>
@@ -59,7 +61,7 @@
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-300">Email</label>
                     <div class="mt-1">
-                        <input id="email" name="email" type="email" required 
+                        <input id="email" name="email" type="email" required
                             value="<?= htmlspecialchars($_SESSION['usuario_email'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
                             class="appearance-none block w-full px-4 py-2.5 border border-[#333333] rounded-md shadow-sm placeholder-gray-500 bg-[#252525] text-white focus:outline-none focus:ring-2 focus:ring-[#10b981] focus:border-[#10b981] sm:text-sm">
                     </div>
@@ -68,7 +70,7 @@
                 <div>
                     <label for="telefone" class="block text-sm font-medium text-gray-300">Telefone</label>
                     <div class="mt-1">
-                        <input id="telefone" name="telefone" type="tel" 
+                        <input id="telefone" name="telefone" type="tel"
                             value="<?= htmlspecialchars($_SESSION['usuario_telefone'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
                             class="appearance-none block w-full px-4 py-2.5 border border-[#333333] rounded-md shadow-sm placeholder-gray-500 bg-[#252525] text-white focus:outline-none focus:ring-2 focus:ring-[#10b981] focus:border-[#10b981] sm:text-sm">
                     </div>
@@ -87,4 +89,5 @@
     </main>
 
 </body>
+
 </html>

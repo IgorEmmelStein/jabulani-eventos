@@ -15,7 +15,7 @@
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-8">
                     <span class="text-2xl font-bold tracking-tight text-white">JabulaniEventos</span>
-                    <a href="../dashboard" class="text-sm font-medium text-gray-400 hover:text-white transition">Voltar ao Dashboard</a>
+                    <a href="../dashboard" class="bg-[#252525] border border-[#333333] hover:bg-[#2d2d2d] px-4 py-2 rounded-full text-sm font-medium transition">Voltar ao Dashboard</a>
                 </div>
                 <div class="flex items-center gap-4">
                     <span class="text-xs bg-[#252525] border border-[#333333] px-3 py-1 rounded-full capitalize text-gray-300"><?= $_SESSION['usuario_tipo'] ?></span>

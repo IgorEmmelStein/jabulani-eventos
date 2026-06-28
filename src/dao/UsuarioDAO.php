@@ -6,17 +6,20 @@ use Src\Config\Database;
 use Src\Models\Usuario;
 use PDO;
 
-class UsuarioDAO {
+class UsuarioDAO
+{
     private $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = Database::getConnection();
     }
 
-    public function cadastrar(Usuario $usuario) {
+    public function cadastrar(Usuario $usuario)
+    {
         $sql = "INSERT INTO Usuarios (nomeUsuario, email, telefone, senha, tipo) VALUES (:nome, :email, :telefone, :senha, :tipo)";
         $stmt = $this->db->prepare($sql);
-        
+
         $nome = $usuario->getNomeUsuario();
         $email = $usuario->getEmail();
         $telefone = $usuario->getTelefone();
@@ -29,10 +32,21 @@ class UsuarioDAO {
         $stmt->bindParam(':senha', $senha);
         $stmt->bindParam(':tipo', $tipo);
 
-        return $stmt->execute();
+        // Captura o erro caso adicione um usuario que ja tem o mesmo valor no banco
+        try {
+            return $stmt->execute();
+        } catch (\PDOException $e) {
+            // O código 23000 representa uma violação de integridade no MySQL
+            if ($e->getCode() == 23000) {
+                return false;
+            }
+            // Lança a exceção novamente caso seja um erro no banco diferente de duplicidade
+            throw $e;
+        }
     }
 
-    public function buscarPorEmail($email) {
+    public function buscarPorEmail($email)
+    {
         $sql = "SELECT * FROM Usuarios WHERE email = :email";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':email', $email);
@@ -55,7 +69,8 @@ class UsuarioDAO {
         );
     }
 
-    public function atualizarPerfil(Usuario $usuario) {
+    public function atualizarPerfil(Usuario $usuario)
+    {
         $sql = "UPDATE Usuarios SET nomeUsuario = :nome, email = :email, telefone = :telefone WHERE idUsuario = :id";
         $stmt = $this->db->prepare($sql);
 
@@ -72,24 +87,25 @@ class UsuarioDAO {
         return $stmt->execute();
     }
 
-    public function buscarParticipantes($termo) {
+    public function buscarParticipantes($termo)
+    {
         // 1. Alteramos os parâmetros para nomes únicos (:termo1 e :termo2)
         $sql = "SELECT * FROM Usuarios WHERE tipo = 'participante' AND (nomeUsuario LIKE :termo1 OR email LIKE :termo2)";
-        
+
         $stmt = $this->db->prepare($sql);
-        
+
         $likeTermo = '%' . $termo . '%';
-        
+
         // 2. Fazemos o bind dos dois parâmetros individualmente
         $stmt->bindParam(':termo1', $likeTermo);
         $stmt->bindParam(':termo2', $likeTermo);
-        
+
         $stmt->execute();
-        
+
         $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         $usuarios = [];
-        
+
         foreach ($resultados as $resultado) {
             $usuarios[] = new Usuario(
                 $resultado['nomeUsuario'],
@@ -101,8 +117,7 @@ class UsuarioDAO {
                 $resultado['registroCriado']
             );
         }
-        
+
         return $usuarios;
     }
-    
 }
