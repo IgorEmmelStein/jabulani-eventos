@@ -6,13 +6,15 @@ class Usuario {
     private $idUsuario;
     private $nomeUsuario;
     private $email;
+    private $telefone;
     private $senha;
     private $tipo;
     private $registroCriado;
 
-    public function __construct($nomeUsuario = null, $email = null, $senha = null, $tipo = 'participante', $idUsuario = null, $registroCriado = null) {
+    public function __construct($nomeUsuario = null, $email = null, $telefone = null, $senha = null, $tipo = 'participante', $idUsuario = null, $registroCriado = null) {
         $this->nomeUsuario = $nomeUsuario;
         $this->email = $email;
+        $this->telefone = $telefone;
         $this->senha = $senha;
         $this->tipo = $tipo;
         $this->idUsuario = $idUsuario;
@@ -65,5 +67,13 @@ class Usuario {
 
     public function setRegistroCriado($registroCriado) {
         $this->registroCriado = $registroCriado;
+    }
+
+    public function getTelefone() {
+        return $this->telefone;
+    }
+
+    public function setTelefone($telefone) {
+        $this->telefone = $telefone;
     }
 }

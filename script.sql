@@ -6,7 +6,8 @@ CREATE TABLE Usuarios (
     nomeUsuario VARCHAR(255) UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
-    tipo ENUM('admin', 'participante') DEFAULT 'participante', 
+    tipo ENUM('admin', 'participante') DEFAULT 'participante',
+    telefone VARCHAR(20), 
     registroCriado TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -25,7 +26,7 @@ CREATE TABLE Usuarios_Eventos (
     idEvento INT,
     registroCriado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario) ON DELETE CASCADE, 
-    FOREIGN KEY (idEvento) REFERENCES Eventos(id) ON DELETE CASCADE[cite: 1]
+    FOREIGN KEY (idEvento) REFERENCES Eventos(id) ON DELETE CASCADE
 );
 
 

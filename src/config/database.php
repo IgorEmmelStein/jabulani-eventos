@@ -17,7 +17,7 @@ class Database {
 
             //dados do bg pra conectar
             $host = 'localhost';
-            $db   = 'jabulani-eventos';
+            $db   = 'jabulani_eventos';
             $user = 'root'; 
             $pass = '';     
             //formatação Multibyte de 4 bytes para conexões de banco de dados, sendo o padrão atual e recomendado
@@ -41,7 +41,7 @@ class Database {
             try {
                 self::$instance = new PDO($dsn, $user, $pass, $options);
             } catch (PDOException $e) {
-                
+
                 die("Erro de conexao com o banco de dados: " . $e->getMessage());
             }
         }

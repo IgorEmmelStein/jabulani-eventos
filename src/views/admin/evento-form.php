@@ -13,10 +13,12 @@
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-8">
                     <span class="text-2xl font-bold tracking-tight text-white">JabulaniEventos</span>
-                    <a href="../dashboard" class="text-sm font-medium text-gray-400 hover:text-white transition">Voltar ao Dashboard</a>
+                    <a href="<?= BASE_URL ?>dashboard" class="text-sm font-medium text-gray-400 hover:text-white transition">Voltar ao Dashboard</a>
                 </div>
                 <div class="flex items-center gap-4">
-                    <span class="text-xs bg-[#252525] border border-[#333333] px-3 py-1 rounded-full capitalize text-gray-300"><?= $_SESSION['usuario_tipo'] ?></span>
+                    <span class="text-xs bg-[#252525] border border-[#333333] px-3 py-1 rounded-full capitalize text-gray-300">
+                        <?= htmlspecialchars($_SESSION['usuario_tipo'] ?? 'admin', ENT_QUOTES, 'UTF-8') ?>
+                    </span>
                 </div>
             </div>
         </div>
@@ -31,7 +33,16 @@
         </div>
 
         <div class="bg-[#1e1e1e] shadow sm:rounded-xl border border-[#2d2d2d] overflow-hidden">
-            <form action="<?= isset($evento) && $evento->getId() ? 'editar?id=' . $evento->getId() : 'criar' ?>" method="POST" class="p-6 sm:p-8 space-y-6">
+            
+            <!-- BLOCO DE ERRO: GARANTE QUE VOCÊ VEJA SE ALGO FALHAR -->
+            <?php if (isset($erro)): ?>
+                <div class="m-6 mb-0 bg-red-900/50 border border-red-500 text-red-200 text-sm p-3 rounded-lg">
+                    <?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?>
+                </div>
+            <?php endif; ?>
+
+            <!-- O ACTION VAZIO EVITA QUE O APACHE PERCA OS DADOS DO POST -->
+            <form action="" method="POST" class="p-6 sm:p-8 space-y-6">
                 
                 <div>
                     <label for="titulo" class="block text-sm font-medium text-gray-300">Título do Evento *</label>
@@ -45,7 +56,7 @@
                 <div>
                     <label for="descricao" class="block text-sm font-medium text-gray-300">Descrição *</label>
                     <div class="mt-1">
-                        <textarea id="descricao" name="descricao" rows="4" required placeholder="Descreva o evento..." 
+                        <textarea id="descricao" name="descricao" rows="4" required placeholder="Descreva o evento..."
                             class="appearance-none block w-full px-4 py-2.5 border border-[#333333] rounded-md shadow-sm placeholder-gray-500 bg-[#252525] text-white focus:outline-none focus:ring-2 focus:ring-[#10b981] focus:border-[#10b981] sm:text-sm"><?= isset($evento) ? htmlspecialchars($evento->getDescricao()) : '' ?></textarea>
                     </div>
                 </div>
@@ -71,14 +82,13 @@
                 </div>
 
                 <div class="pt-4 border-t border-[#2d2d2d] flex items-center justify-end gap-3">
-                    <a href="../dashboard" class="px-5 py-2.5 rounded-full text-sm font-medium border border-[#333333] bg-[#252525] text-gray-300 hover:bg-[#2d2d2d] transition">
+                    <a href="<?= BASE_URL ?>dashboard" class="px-5 py-2.5 rounded-full text-sm font-medium border border-[#333333] bg-[#252525] text-gray-300 hover:bg-[#2d2d2d] transition">
                         Cancelar
                     </a>
                     <button type="submit" class="px-6 py-2.5 rounded-full text-sm font-bold text-white bg-[#10b981] hover:bg-[#059669] transition shadow-sm">
                         <?= isset($evento) && $evento->getId() ? 'Salvar Alterações' : 'Criar Evento' ?>
                     </button>
                 </div>
-
             </form>
         </div>
     </main>

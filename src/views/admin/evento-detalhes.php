@@ -50,8 +50,14 @@
                     <h2 class="text-xl font-bold text-white tracking-tight">Participantes Inscritos</h2>
                     <p class="text-xs text-gray-400 mt-0.5">Lista de utilizadores registados para este evento.</p>
                 </div>
-                <div class="text-sm font-semibold bg-[#252525] border border-[#333333] px-4 py-1.5 rounded-full text-gray-300">
-                    Total: <?= count($participantes) ?>
+<!-- Função exportar em PDF -->
+                <div class="flex items-center gap-3">
+                    <a href="../evento/relatorio-pdf?id=<?= $evento->getId() ?>" target="_blank" class="px-4 py-1.5 rounded-full text-sm font-semibold bg-[#535353] text-white transition">
+                        Imprimir Lista (PDF)
+                    </a>
+                    <div class="text-sm font-semibold bg-[#252525] border border-[#333333] px-4 py-1.5 rounded-full text-gray-300">
+                        Total: <?= count($participantes) ?>
+                    </div>
                 </div>
             </div>
 
